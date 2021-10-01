@@ -11,6 +11,7 @@ const createBtn = document.querySelector("#createBtn")
 const removeBtn = document.querySelector("#removeBtn");
 const appendForm = document.querySelector("#appendNewList");
 
+
 function opneWeb() {
     for (let webMenu of webMenus) {
         const li = document.createElement("li");
@@ -27,6 +28,12 @@ function openManual(event) {
     divManual.innerHTML = `<p>${webMenus[targetId].name}</p>${webMenus[targetId].body}`
 }
 
+function appendList(event) {
+    const name = event.target[0].value;
+    const body = event.target[1].value;
+    
+    event.preventDefault()
+}
 
 window.addEventListener("load", opneWeb);
 
@@ -37,3 +44,5 @@ createBtn.addEventListener("click", () => {
 removeBtn.addEventListener("click", () => {
     appendForm.classList.add("hide");
 })
+
+appendForm.addEventListener("submit", appendList)
