@@ -10,7 +10,7 @@ const webList = document.querySelector("#web-list");
 const createBtn = document.querySelector("#createBtn")
 const removeBtn = document.querySelector("#removeBtn");
 const appendForm = document.querySelector("#appendNewList");
-
+let numOfId = 3
 
 function opneWeb() {
     for (let webMenu of webMenus) {
@@ -31,8 +31,13 @@ function openManual(event) {
 function appendList(event) {
     const name = event.target[0].value;
     const body = event.target[1].value;
-    
+    //여기서부터 시작
     event.preventDefault()
+    const newWeb = { id: numOfId, name: name, body: body}
+    webMenus.push(newWeb)
+    ul.innerHTML = ''
+    opneWeb()
+    numOfId ++
 }
 
 window.addEventListener("load", opneWeb);
