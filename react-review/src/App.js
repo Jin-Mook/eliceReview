@@ -3,14 +3,14 @@ import Content from './Content'
 
 function App() {
   const topics = [
-    {key: 0, title: "hello", body: "main page"},
-    {key: 1, title: "html", body: "html is ..."},
-    {key: 2, title: "css", body: "css is ..."},
+    {num: 0, title: "hello", body: "main page"},
+    {num: 1, title: "html", body: "html is ..."},
+    {num: 2, title: "css", body: "css is ..."},
   ]
 
   return (
     <>
-      <Content topic={topics}/>
+      <Content topics={topics}/>
       <form>
         <div>
           <label htmlFor="title">title</label>

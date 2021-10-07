@@ -10,27 +10,36 @@ function Body(props) {
 }
 
 // 메인 컴포넌트
-function Content(props) {
+function Content({topics}) { // props는 App에서 topics를 의미
   const [showBodyIndex, setShowBodyIndex] = useState(0)
 
-  function Li(props) {
+  function Li({num, title}) { // topics의 특정 인덱스의 num, title 의미
     function changeBody() {
-      setShowBodyIndex(props.id)
+      // console.log(num, title)
+      setShowBodyIndex(num)
     }
   
     return (
-      <li onClick={changeBody}>{props.title}</li>
+      <li onClick={changeBody}>{title}</li>
     )
+  }
+
+  function LiBucket({topics}) {
+    let element = []
+    for (let i=1; i<topics.length; i++) {
+      element.push(<Li key={i} num={topics[i].num} title={topics[i].title}/>)
+    }
+    // console.log(element)
+    return element
   }
 
   return (
     <div>
       <h1 onClick={() => {setShowBodyIndex(0)}}>Welcome</h1>
       <ol>
-        <Li id={props.topic[1].key} title={props.topic[1].title}/>
-        <Li id={props.topic[2].key} title={props.topic[2].title}/>
+        <LiBucket topics={topics} />
       </ol>
-      <Body title={props.topic[showBodyIndex].title} body={props.topic[showBodyIndex].body}/>
+      <Body title={topics[showBodyIndex].title} body={topics[showBodyIndex].body}/>
       
     </div>
   )
