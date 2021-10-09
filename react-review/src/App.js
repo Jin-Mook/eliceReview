@@ -12,10 +12,19 @@ function App() {
     {num: 2, title: "css", body: "css is ..."},
   ])
 
+  function handleClick() {
+    const newTopics = [...topics]
+    newTopics.pop()
+    setTopics(newTopics)
+    setNum(topics.length)
+
+  }
+
   return (
     <>
       <Content topics={topics}/>
       <PushForm topics={topics} num={num} setNum={setNum} setTopics={setTopics}/>
+      <button onClick={handleClick}>삭제</button>
     </>
   );
 }
