@@ -1,4 +1,4 @@
-
+import { useState } from "react";
 
 
 // 각 카테고리의 헤더를 보여준다.
@@ -27,10 +27,19 @@ function ProductRow({name, price, stocked}) {
 }
 
 // 유저의 입력을 기반으로 데이터 콜렉션을 필터링 해서 보여준다.
-function ProductTable({products}) {  // 상품들의 배열을 props로 가져온다.
+function ProductTable({products, filterText, isStockOnly}) {  // 상품들의 배열을 props로 가져온다.
   const rows = [];
   let lastCategory = null;
   products.forEach((el) => {
+    if (el.name.indexOf(filterText) === -1) {  // 필터와 맞는 단어가 없으면 그냥 넘김
+      return;
+    }
+
+    if (isStockOnly && !el.stocked) {   // checkbox에 체크가 되고 stocked 가 false라면 넘김
+      return;
+    }
+
+
     if (el.category != lastCategory) {
       rows.push(<ProductCategoryRow category={el.category} key={el.category}></ProductCategoryRow>)
       lastCategory = el.category
@@ -52,13 +61,13 @@ function ProductTable({products}) {  // 상품들의 배열을 props로 가져�
 }
 
 // 모든 유저의 입력을 받는다.
-function SearchBar() {
+function SearchBar({filterText, isStockOnly}) {
 
   return (
     <form>
-      <input type="text" placeholder="Search..." />
+      <input type="text" placeholder="Search..." value={filterText} />
       <p>
-        <input type="checkbox" />
+        <input type="checkbox" checked={isStockOnly}/>
         {' '}
         Only show products in stock
       </p>
@@ -79,10 +88,13 @@ function FilterableProduectTable() {
     {category: 'Electronics', price: '$199.99', stocked: true, name: 'Nexus 7'}
   ]
 
+  const [filterText, setFilterText] = useState('');
+  const [isStockOnly, setIsStockOnly] = useState(false);
+
   return (
     <>
-      <SearchBar />
-      <ProductTable products={PRODUCTS}></ProductTable>
+      <SearchBar filterText={filterText} isStockOnly={isStockOnly}/>
+      <ProductTable products={PRODUCTS} filterText={filterText} isStockOnly={isStockOnly}></ProductTable>
     </>
   )
 }

@@ -9,6 +9,14 @@ function Body(props) {
   )
 }
 
+function DeleteButton({topics, onClick}) {
+  
+
+  return (
+    <button onClick={onClick}>삭제</button>
+  )
+}
+
 // 메인 컴포넌트
 function Content({topics}) { // props는 App에서 topics를 의미
   const [showBodyIndex, setShowBodyIndex] = useState(0)
@@ -45,4 +53,4 @@ function Content({topics}) { // props는 App에서 topics를 의미
   )
 }
 
-export default Content
+export {Content, DeleteButton}
