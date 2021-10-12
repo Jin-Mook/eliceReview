@@ -61,20 +61,27 @@ function ProductTable({products, filterText, isStockOnly}) {  // 상품들의 �
 }
 
 // 모든 유저의 입력을 받는다.
-function SearchBar({filterText, isStockOnly}) {
-
+function SearchBar(props) {
+  const {filterText, isStockOnly, onChange, onCheck} = props
+  
+  const changeHandler = (event) => {
+    onChange(event.target.value);
+  }
+  const checkHandler = (event) => {
+    onCheck(event.target.checked)
+  }
+  
   return (
     <form>
-      <input type="text" placeholder="Search..." value={filterText} />
+      <input type="text" placeholder="Search..." value={filterText} onChange={changeHandler} />
       <p>
-        <input type="checkbox" checked={isStockOnly}/>
+        <input type="checkbox" checked={isStockOnly} onChange={checkHandler} />
         {' '}
         Only show products in stock
       </p>
     </form>
   )
 }
-
 
 
 // 전체 최상위 컴포넌트.
@@ -93,7 +100,7 @@ function FilterableProduectTable() {
 
   return (
     <>
-      <SearchBar filterText={filterText} isStockOnly={isStockOnly}/>
+      <SearchBar filterText={filterText} isStockOnly={isStockOnly} onChange={setFilterText} onCheck={setIsStockOnly}/>
       <ProductTable products={PRODUCTS} filterText={filterText} isStockOnly={isStockOnly}></ProductTable>
     </>
   )
